@@ -36,14 +36,15 @@
     let animationId = null;
     let toastTimer = null;
 
-    const particleCount = 65;
-    const connectionDistance = 125;
+let particleCount = 65;
+let connectionDistance = 125;
+let movementSpeed = 1;
 
-    const pulseSettings = {
-        speed: 5,
-        force: 4,
-        color: "#ffffff"
-    };
+const pulseSettings = {
+  speed: 5,
+  force: 4,
+  color: "#ffffff"
+};
 
     // ==========================================
     // 3. CREATE PARTICLES
@@ -102,8 +103,8 @@
         // Move particles and react to the mouse.
         for (const p of particles) {
             if (!reduceMotion) {
-                p.x += p.vx;
-                p.y += p.vy;
+               p.x += p.vx * movementSpeed;
+               p.y += p.vy * movementSpeed;
             }
 
             // Bounce off the screen edges.
@@ -370,6 +371,132 @@
     // ==========================================
     // 12. START EVERYTHING
     // ==========================================
+    // LIVE LAB CONTROLS
+const controlsToggle = document.getElementById("controlsToggle");
+const controlPanel = document.getElementById("controlPanel");
+
+const densityControl = document.getElementById("densityControl");
+const speedControl = document.getElementById("speedControl");
+const linksControl = document.getElementById("linksControl");
+const pulseControl = document.getElementById("pulseControl");
+const accentControl = document.getElementById("accentControl");
+const resetControls = document.getElementById("resetControls");
+
+const densityValue = document.getElementById("densityValue");
+const speedValue = document.getElementById("speedValue");
+const linksValue = document.getElementById("linksValue");
+const pulseValue = document.getElementById("pulseValue");
+
+if (controlsToggle && controlPanel) {
+  controlsToggle.addEventListener("click", () => {
+    const willOpen = controlPanel.hidden;
+    controlPanel.hidden = !willOpen;
+    controlsToggle.setAttribute("aria-expanded", String(willOpen));
+
+    if (willOpen) {
+      controlPanel.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+  });
+}
+
+function syncControlValues() {
+  if (densityValue) {
+    densityValue.textContent = particleCount;
+  }
+
+  if (speedValue) {
+    speedValue.textContent = movementSpeed.toFixed(1) + "×";
+  }
+
+  if (linksValue) {
+    linksValue.textContent = connectionDistance + " px";
+  }
+
+  if (pulseValue) {
+    pulseValue.textContent = pulseSettings.force;
+  }
+}
+
+if (densityControl) {
+  densityControl.addEventListener("input", () => {
+    particleCount = Number(densityControl.value);
+
+    while (particles.length < particleCount) {
+      particles.push(createParticle());
+    }
+
+    particles.length = particleCount;
+
+    syncControlValues();
+    drawParticles();
+  });
+}
+
+if (speedControl) {
+  speedControl.addEventListener("input", () => {
+    movementSpeed = Number(speedControl.value);
+    syncControlValues();
+  });
+}
+
+if (linksControl) {
+  linksControl.addEventListener("input", () => {
+    connectionDistance = Number(linksControl.value);
+    syncControlValues();
+    drawParticles();
+  });
+}
+
+if (pulseControl) {
+  pulseControl.addEventListener("input", () => {
+    pulseSettings.force = Number(pulseControl.value);
+    syncControlValues();
+  });
+}
+
+if (accentControl) {
+  accentControl.addEventListener("change", () => {
+    const color = accentControl.value;
+
+    document.documentElement.style.setProperty("--accent", color);
+    drawParticles();
+  });
+}
+
+if (resetControls) {
+  resetControls.addEventListener("click", () => {
+    particleCount = 65;
+    movementSpeed = 1;
+    connectionDistance = 125;
+    pulseSettings.force = 4;
+
+    if (densityControl) densityControl.value = "65";
+    if (speedControl) speedControl.value = "1";
+    if (linksControl) linksControl.value = "125";
+    if (pulseControl) pulseControl.value = "4";
+
+    if (accentControl) {
+      accentControl.value = "#bd8cff";
+      document.documentElement.style.setProperty(
+        "--accent",
+        "#bd8cff"
+      );
+    }
+
+    while (particles.length < particleCount) {
+      particles.push(createParticle());
+    }
+
+    particles.length = particleCount;
+    syncControlValues();
+    drawParticles();
+  });
+}
+
+syncControlValues();
     resizeCanvas();
     startAnimation();
 })();
