@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0b12">
+    <meta name="description" content="THE WEIRD WEB LAB — a tiny playground for strange ideas and interactive experiments.">
+    <title>THE WEIRD WEB LAB</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<canvas id="particleCanvas" aria-hidden="true"></canvas>
+
+<header class="navbar">
+    <a class="logo" href="#home">W<span>/</span>L</a>
+
+    <nav aria-label="Main navigation">
+        <a href="#experiments">Experiments</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <button class="theme-button" id="themeButton" type="button">
+        Change vibe <span aria-hidden="true">✳</span>
+    </button>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="eyebrow">
+            <span class="status-dot"></span>
+            INTERNET EXPERIMENTS / VOL. 001
+        </div>
+
+        <h1>
+            WELCOME TO<br>
+            THE <span class="accent-text">WEIRD</span><br>
+            SIDE OF THE WEB<span class="accent-text">.</span>
+        </h1>
+
+        <p class="hero-description">
+            A little corner of the internet where weird ideas,
+            random experiments, and digital chaos come to life.
+        </p>
+
+        <div class="hero-actions">
+            <a class="primary-button" href="#experiments">
+                Explore the lab <span aria-hidden="true">↘</span>
+            </a>
+            <button class="secondary-button" id="surpriseButton" type="button">
+                Surprise me ✦
+            </button>
+        </div>
+
+        <div class="scroll-note">
+            <span class="scroll-line"></span>
+            SCROLL TO DISCOVER
+        </div>
+    </section>
+
+    <section class="experiments section-wrap" id="experiments">
+        <div class="section-heading">
+            <div>
+                <p class="section-kicker">01 / THE PLAYGROUND</p>
+                <h2>Little experiments.<br><span>Big weird energy.</span></h2>
+            </div>
+            <p class="section-note">
+                Move your mouse. Click the background.<br>
+                See what happens.
+            </p>
+        </div>
+
+        <div class="experiment-grid">
+            <article class="experiment-card card-purple">
+                <div class="card-top">
+                    <span class="card-number">EXP. 001</span>
+                    <span class="card-symbol" aria-hidden="true">✳</span>
+                </div>
+                <div class="card-art art-orbit" aria-hidden="true">
+                    <span class="orbit orbit-one"></span>
+                    <span class="orbit orbit-two"></span>
+                    <span class="orbit orbit-three"></span>
+                    <span class="orbit-core"></span>
+                </div>
+                <h3>Cosmic thoughts</h3>
+                <p>Somewhere between chaos and the stars.</p>
+                <span class="card-tag">SPACE / DREAMS</span>
+            </article>
+
+            <article class="experiment-card card-pink">
+                <div class="card-top">
+                    <span class="card-number">EXP. 002</span>
+                    <span class="card-symbol" aria-hidden="true">⌁</span>
+                </div>
+                <div class="card-art art-wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <h3>Digital daydream</h3>
+                <p>A tiny glitch in the ordinary universe.</p>
+                <span class="card-tag">PIXELS / FEELINGS</span>
+            </article>
+
+            <article class="experiment-card card-blue">
+                <div class="card-top">
+                    <span class="card-number">EXP. 003</span>
+                    <span class="card-symbol" aria-hidden="true">⌘</span>
+                </div>
+                <div class="card-art art-shapes" aria-hidden="true">
+                    <span class="shape shape-square"></span>
+                    <span class="shape shape-circle"></span>
+                    <span class="shape shape-diamond"></span>
+                </div>
+                <h3>Beautiful nonsense</h3>
+                <p>There doesn't always have to be a reason.</p>
+                <span class="card-tag">ODD / CREATIVE</span>
+            </article>
+        </div>
+    </section>
+
+    <section class="about section-wrap" id="about">
+        <p class="section-kicker">02 / WHY THIS EXISTS</p>
+        <h2>Made with curiosity.<br><span>Powered by chaos.</span></h2>
+        <p>
+            This is an experimental web playground built to explore
+            creative code, playful interactions, and unexpected ideas.
+            Nothing here needs to be ordinary.
+        </p>
+        <div class="about-stamp" aria-hidden="true">STAY<br>WEIRD ✳</div>
+    </section>
+
+    <section class="surprise-strip">
+        <p>THE UNIVERSE IS A LITTLE STRANGE.</p>
+        <span aria-hidden="true">✳</span>
+        <p>SO ARE WE. THAT'S THE FUN PART.</p>
+    </section>
+</main>
+
+<footer class="footer">
+    <a class="logo" href="#home">W<span>/</span>L</a>
+    <p>BUILT WITH CURIOSITY & A LITTLE CHAOS.</p>
+    <a href="#home">BACK TO TOP ↑</a>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
