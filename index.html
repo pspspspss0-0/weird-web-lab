@@ -45,13 +45,106 @@
         </p>
 
         <div class="hero-actions">
+            
             <a class="primary-button" href="#experiments">
                 Explore the lab <span aria-hidden="true">↘</span>
             </a>
             <button class="secondary-button" id="surpriseButton" type="button">
                 Surprise me ✦
             </button>
+            <button
+  class="secondary-button"
+  id="controlsToggle"
+  type="button"
+  aria-expanded="false"
+  aria-controls="controlPanel"
+>
+  ⚙ LAB CONTROLS
+</button>
         </div>
+        <section
+  class="lab-controls section-wrap"
+  id="controlPanel"
+  aria-label="Live particle controls"
+  hidden
+>
+  <div class="control-heading">
+    <div>
+      <p class="section-kicker">INTERACTIVE SYSTEM</p>
+      <h2>LAB <span>CONTROL</span></h2>
+    </div>
+    <span class="control-status">● SYSTEM ONLINE</span>
+  </div>
+
+  <div class="control-grid">
+    <label class="control-item" for="densityControl">
+      <span>Particle density</span>
+      <output id="densityValue">65</output>
+      <input
+        id="densityControl"
+        type="range"
+        min="20"
+        max="120"
+        step="5"
+        value="65"
+      />
+    </label>
+
+    <label class="control-item" for="speedControl">
+      <span>Movement speed</span>
+      <output id="speedValue">1.0×</output>
+      <input
+        id="speedControl"
+        type="range"
+        min="0"
+        max="3"
+        step="0.1"
+        value="1"
+      />
+    </label>
+
+    <label class="control-item" for="linksControl">
+      <span>Connection distance</span>
+      <output id="linksValue">125 px</output>
+      <input
+        id="linksControl"
+        type="range"
+        min="50"
+        max="200"
+        step="5"
+        value="125"
+      />
+    </label>
+
+    <label class="control-item" for="pulseControl">
+      <span>Pulse intensity</span>
+      <output id="pulseValue">4</output>
+      <input
+        id="pulseControl"
+        type="range"
+        min="1"
+        max="10"
+        step="1"
+        value="4"
+      />
+    </label>
+  </div>
+
+  <div class="control-bottom">
+    <label for="accentControl">Energy color</label>
+    <select id="accentControl">
+      <option value="#bd8cff">Electric Purple</option>
+      <option value="#ff8fc9">Neon Pink</option>
+      <option value="#79cfff">Cyber Blue</option>
+      <option value="#8ef5b1">Acid Green</option>
+      <option value="#ffb86b">Solar Orange</option>
+    </select>
+
+    <button class="secondary-button" id="resetControls" type="button">
+      ↺ RESET
+    </button>
+  </div>
+</section>
 
         <div class="scroll-note">
             <span class="scroll-line"></span>
