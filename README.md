@@ -9,6 +9,11 @@ A creative, interactive web experiment built to explore motion, color, particles
 > _Normal is overrated. Let's make the web weird._
 
 ---
+## 🖥️ Preview
+
+<p align="center">
+  <img src="assets/readme-preview.png" alt="THE WEIRD WEB LAB — Concept Preview" width="100%">
+</p>
 
 ## ✦ Features
 
