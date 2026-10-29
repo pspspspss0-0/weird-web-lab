@@ -8,6 +8,9 @@ A creative, interactive web experiment built to explore motion, color, particles
 
 > _Normal is overrated. Let's make the web weird._
 
+
+https://pspspspss0-0.github.io/weird-web-lab/
+
 ---
 ## 🖥️ Preview
 
