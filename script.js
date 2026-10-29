@@ -67,6 +67,13 @@ surpriseButton.addEventListener("click", () => {
   let height = 0;
   let particles = [];
   let animationId;
+    const pulses = [];
+
+const pulseSettings = {
+  speed: 5,
+  force: 4,
+  color: "#ffffff"
+};
 
   const particleCount = 65;
   const connectionDistance = 125;
@@ -127,6 +134,33 @@ surpriseButton.addEventListener("click", () => {
       p.x = Math.max(0, Math.min(width, p.x));
       p.y = Math.max(0, Math.min(height, p.y));
     });
+      // Apply expanding pulses to nearby particles
+for (const pulse of pulses) {
+  pulse.radius += pulseSettings.speed;
+
+  for (const p of particles) {
+    const dx = p.x - pulse.x;
+    const dy = p.y - pulse.y;
+    const distance = Math.hypot(dx, dy);
+
+    // Push particles when the expanding ring reaches them
+    if (
+      !reduceMotion &&
+      Math.abs(distance - pulse.radius) < 7 &&
+      distance > 0
+    ) {
+      p.x += (dx / distance) * pulseSettings.force;
+      p.y += (dy / distance) * pulseSettings.force;
+    }
+  }
+}
+
+// Remove pulses that have expanded beyond the screen
+for (let i = pulses.length - 1; i >= 0; i--) {
+  if (pulses[i].radius > Math.hypot(width, height)) {
+    pulses.splice(i, 1);
+  }
+}
 
     // Draw connecting lines
     for (let i = 0; i < particles.length; i++) {
@@ -148,7 +182,29 @@ surpriseButton.addEventListener("click", () => {
         }
       }
     }
+// Draw expanding pulse rings
+for (const pulse of pulses) {
+  const progress = pulse.radius / Math.hypot(width, height);
 
+  ctx.beginPath();
+  ctx.arc(
+    pulse.x,
+    pulse.y,
+    pulse.radius,
+    0,
+    Math.PI * 2
+  );
+
+  ctx.strokeStyle = pulseSettings.color;
+  ctx.lineWidth = 2;
+  ctx.globalAlpha = Math.max(0, 1 - progress);
+  ctx.shadowBlur = 14;
+  ctx.shadowColor = pulseSettings.color;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+}
+
+ctx.globalAlpha = 1;
     // Draw glowing points
     particles.forEach((p) => {
       ctx.beginPath();
@@ -191,3 +247,15 @@ surpriseButton.addEventListener("click", () => {
 
   if (!reduceMotion) animate();
 })();
+// Create a pulse when clicking on the page
+window.addEventListener("click", (event) => {
+  // Keep normal buttons and links working without a pulse
+  if (event.target.closest("button, a")) return;
+
+  pulses.push({
+    x: event.clientX,
+    y: event.clientY,
+    radius: 0
+  });
+});
+window.addEventListener("pointermove", (event) => {
