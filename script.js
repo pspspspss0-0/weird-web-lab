@@ -419,7 +419,142 @@ function syncControlValues() {
     pulseValue.textContent = pulseSettings.force;
   }
 }
+const SETTINGS_KEY = "weirdWebLabSettingsV1";
 
+const presets = {
+  zen: {
+    density: 35,
+    speed: 0.4,
+    links: 95,
+    pulse: 2,
+    color: "#79cfff"
+  },
+
+  chaos: {
+    density: 110,
+    speed: 2.4,
+    links: 165,
+    pulse: 8,
+    color: "#ff8fc9"
+  },
+
+  hyperspace: {
+    density: 85,
+    speed: 3,
+    links: 130,
+    pulse: 10,
+    color: "#8ef5b1"
+  }
+};
+
+function applySettings(settings) {
+  const allowedColors = [
+    "#bd8cff",
+    "#ff8fc9",
+    "#79cfff",
+    "#8ef5b1",
+    "#ffb86b"
+  ];
+
+  particleCount = Math.max(
+    20,
+    Math.min(120, Number(settings.density) || 65)
+  );
+
+  movementSpeed = Math.max(
+    0,
+    Math.min(3, Number(settings.speed) || 0)
+  );
+
+  connectionDistance = Math.max(
+    50,
+    Math.min(200, Number(settings.links) || 125)
+  );
+
+  pulseSettings.force = Math.max(
+    1,
+    Math.min(10, Number(settings.pulse) || 4)
+  );
+
+  const color = allowedColors.includes(settings.color)
+    ? settings.color
+    : "#bd8cff";
+
+  if (densityControl) densityControl.value = particleCount;
+  if (speedControl) speedControl.value = movementSpeed;
+  if (linksControl) linksControl.value = connectionDistance;
+  if (pulseControl) pulseControl.value = pulseSettings.force;
+  if (accentControl) accentControl.value = color;
+
+  document.documentElement.style.setProperty("--accent", color);
+
+  while (particles.length < particleCount) {
+    particles.push(createParticle());
+  }
+
+  particles.length = particleCount;
+
+  syncControlValues();
+  drawParticles();
+}
+
+function saveSettings() {
+  try {
+    localStorage.setItem(
+      SETTINGS_KEY,
+      JSON.stringify({
+        density: particleCount,
+        speed: movementSpeed,
+        links: connectionDistance,
+        pulse: pulseSettings.force,
+        color: getAccentColor()
+      })
+    );
+  } catch (error) {
+    console.warn("Could not save lab settings.", error);
+  }
+}
+
+function loadSettings() {
+  try {
+    const saved = localStorage.getItem(SETTINGS_KEY);
+
+    if (saved) {
+      applySettings(JSON.parse(saved));
+    }
+  } catch (error) {
+    console.warn("Could not load lab settings.", error);
+  }
+}
+
+document.querySelectorAll("[data-preset]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const preset = presets[button.dataset.preset];
+
+    if (!preset) return;
+
+    applySettings(preset);
+    saveSettings();
+  });
+});
+
+// Save every adjustment made in the control panel.
+[densityControl, speedControl, linksControl, pulseControl]
+  .filter(Boolean)
+  .forEach((control) => {
+    control.addEventListener("input", saveSettings);
+  });
+
+if (accentControl) {
+  accentControl.addEventListener("change", saveSettings);
+}
+
+if (resetControls) {
+  resetControls.addEventListener("click", saveSettings);
+}
+
+// Restore the visitor's last settings.
+loadSettings();
 if (densityControl) {
   densityControl.addEventListener("input", () => {
     particleCount = Number(densityControl.value);
