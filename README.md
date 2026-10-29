@@ -11,9 +11,9 @@ A creative, interactive web experiment built to explore motion, color, particles
 ---
 ## 🖥️ Preview
 
-<p align="center">
-  <img src="assets/readme-preview.png" alt="THE WEIRD WEB LAB — Concept Preview" width="100%">
-</p>
+
+  <img width="1536" height="1024" alt="readme-preview" src="https://github.com/user-attachments/assets/c0ec08cd-4a67-4101-9301-ea749c5d9713" />
+
 
 ## ✦ Features
 
