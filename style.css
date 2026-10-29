@@ -854,3 +854,25 @@ main,
     animation: none;
   }
 }
+.preset-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.preset-row > span {
+  width: 100%;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.preset-row button {
+  font-size: 11px;
+}
+
+.preset-row button:active {
+  transform: scale(0.97);
+}
